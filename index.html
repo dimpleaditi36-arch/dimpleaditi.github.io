@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditi Dannina — Financial Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#13201c;
+    --paper:#f6f4ee;
+    --paper-2:#efece3;
+    --line:#d4cfc2;
+    --green:#1c4d3e;
+    --green-bright:#2f7d63;
+    --sun:#c8943a;
+    --muted:#5e6660;
+    --shadow:rgba(19,32,28,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,244,238,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .brand span{color:var(--green-bright)}
+  nav a{
+    color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:500;
+    margin-left:26px;transition:color .2s;
+  }
+  nav a:hover{color:var(--green)}
+  @media(max-width:680px){nav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:84px 0 56px;border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--sun);margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(40px,6.4vw,72px);line-height:1.02;letter-spacing:-.02em;
+    margin-bottom:22px;max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--green-bright)}
+  .lede{font-size:clamp(16px,2vw,18.5px);color:var(--muted);max-width:60ch;margin-bottom:34px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:2px;font-size:14px;font-weight:600;
+    text-decoration:none;transition:transform .15s,box-shadow .2s;
+  }
+  .btn-primary{background:var(--green);color:var(--paper)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px var(--shadow)}
+  .btn-ghost{color:var(--green);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--green);background:var(--paper-2)}
+
+  /* ---------- ledger strip ---------- */
+  .ledger{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);border-radius:3px;overflow:hidden;
+    margin-top:48px;background:var(--paper-2);
+  }
+  .ledger .cell{
+    padding:22px 20px;border-right:1px solid var(--line);
+  }
+  .ledger .cell:last-child{border-right:none}
+  .ledger .num{
+    font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;
+    color:var(--green);letter-spacing:-.02em;
+  }
+  .ledger .num .unit{font-size:18px;color:var(--sun)}
+  .ledger .lab{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-top:8px}
+  @media(max-width:680px){.ledger{grid-template-columns:repeat(2,1fr)}
+    .ledger .cell:nth-child(2){border-right:none}
+    .ledger .cell:nth-child(1),.ledger .cell:nth-child(2){border-bottom:1px solid var(--line)}}
+
+  /* ---------- section frame ---------- */
+  section{padding:72px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+  .sec-no{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--sun);padding-top:6px}
+  .sec-title{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.4vw,36px);
+    letter-spacing:-.02em}
+  .sec-sub{color:var(--muted);font-size:15px;margin-top:6px;max-width:54ch}
+
+  /* ---------- about ---------- */
+  #about{border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+  .about-grid p{font-size:16.5px;color:#2b3631;margin-bottom:18px}
+  .about-grid p:last-child{margin-bottom:0}
+  .creds{border:1px solid var(--line);border-radius:3px;background:var(--paper-2)}
+  .creds .row{padding:16px 20px;border-bottom:1px solid var(--line)}
+  .creds .row:last-child{border-bottom:none}
+  .creds .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--sun)}
+  .creds .v{font-size:14.5px;font-weight:500;margin-top:4px}
+  .creds .v small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:2px}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:32px}}
+
+  /* ---------- projects ---------- */
+  #projects{background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .proj{
+    background:var(--paper);border:1px solid var(--line);border-radius:4px;
+    padding:0;margin-bottom:22px;overflow:hidden;
+    transition:box-shadow .25s,transform .2s;
+  }
+  .proj:hover{box-shadow:0 12px 30px var(--shadow);transform:translateY(-2px)}
+  .proj-top{display:flex;justify-content:space-between;align-items:flex-start;
+    padding:26px 28px 0;gap:20px;flex-wrap:wrap}
+  .proj-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    color:var(--sun);text-transform:uppercase}
+  .proj h3{font-family:'Fraunces',serif;font-weight:600;font-size:23px;
+    letter-spacing:-.01em;margin:6px 0 0}
+  .proj-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);white-space:nowrap}
+  .proj-body{padding:14px 28px 26px}
+  .proj-body p{font-size:15px;color:#2b3631;margin-bottom:16px;max-width:70ch}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 10px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:2px;color:var(--green)}
+  .proj-metrics{display:flex;gap:28px;flex-wrap:wrap;margin:4px 0 18px;
+    padding:16px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+  .pm .n{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--green);line-height:1}
+  .pm .l{font-size:11.5px;color:var(--muted);margin-top:4px}
+
+  /* ---------- skills ---------- */
+  #skills{border-bottom:1px solid var(--line)}
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .skill-card{border:1px solid var(--line);border-radius:4px;padding:24px 24px 22px;background:var(--paper-2)}
+  .skill-card h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--sun);margin-bottom:16px}
+  .skill-list{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-list span{font-size:13px;padding:6px 12px;background:var(--paper);
+    border:1px solid var(--line);border-radius:2px;font-weight:500}
+  @media(max-width:680px){.skill-grid{grid-template-columns:1fr}}
+
+  /* ---------- AI section (signature) ---------- */
+  #ai{background:var(--green);color:var(--paper)}
+  #ai .sec-no{color:var(--sun)}
+  #ai .sec-title{color:var(--paper)}
+  #ai .sec-sub{color:#bcd2c8}
+  .ai-intro{max-width:64ch;color:#cdded6;font-size:16px;margin-bottom:36px}
+  .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .ai-card{border:1px solid #2f6353;border-radius:4px;padding:22px;background:#194636}
+  .ai-card .ic{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--sun);margin-bottom:12px}
+  .ai-card h4{font-family:'Fraunces',serif;font-size:19px;font-weight:600;margin-bottom:8px}
+  .ai-card p{font-size:13.5px;color:#bcd2c8;line-height:1.55}
+  .ai-note{margin-top:30px;font-size:13px;color:#9fc0b4;font-style:italic;
+    border-left:2px solid var(--sun);padding-left:16px;max-width:60ch}
+  @media(max-width:760px){.ai-grid{grid-template-columns:1fr}}
+
+  /* ---------- contact ---------- */
+  #contact{text-align:center;padding:96px 0}
+  #contact h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(30px,5vw,52px);
+    letter-spacing:-.02em;margin-bottom:18px}
+  #contact p{color:var(--muted);font-size:17px;margin-bottom:30px}
+  .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--line);padding:26px 0;text-align:center}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)}
+
+  :focus-visible{outline:2px solid var(--green-bright);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Aditi <span>Dannina</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#ai">AI in Practice</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">FP&amp;A · Financial Modeling · Reporting</div>
+    <h1>Turning financial data into <em>decisions</em> leadership can act on.</h1>
+    <p class="lede">I'm a financial analyst with three years across FP&amp;A, budgeting, and forecasting — building the models, dashboards, and variance insights that help teams see where the money goes and why.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#projects">View selected work →</a>
+      <a class="btn btn-ghost" href="mailto:aditi.dannina02@gmail.com">Get in touch</a>
+    </div>
+
+    <div class="ledger">
+      <div class="cell">
+        <div class="num">3<span class="unit">yrs</span></div>
+        <div class="lab">FP&amp;A experience</div>
+      </div>
+      <div class="cell">
+        <div class="num">MSc</div>
+        <div class="lab">Business Analytics</div>
+      </div>
+      <div class="cell">
+        <div class="num">FMVA</div>
+        <div class="lab">Certified analyst</div>
+      </div>
+      <div class="cell">
+        <div class="num">4<span class="unit">+</span></div>
+        <div class="lab">Core BI / data tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-no">01</div>
+      <div>
+        <div class="sec-title">About</div>
+        <div class="sec-sub">Where the numbers meet the narrative.</div>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I work at the point where raw financial data becomes a story leadership can use. Across roles in FinTech and operations, I've built complex Excel models, designed Power BI dashboards, and run the monthly variance analysis that keeps budgets honest and forecasts grounded.</p>
+        <p>My background spans both the analytical and the operational side of finance — from P&amp;L reporting and reconciliations to scenario modeling for M&amp;A. I care about reporting that's accurate, repeatable, and actually read by the people making the calls.</p>
+        <p>Recently I've been folding AI tools into that workflow — using them to move faster through the routine parts of analysis so I can spend more time on judgment and interpretation.</p>
+      </div>
+      <div class="creds">
+        <div class="row">
+          <div class="k">Education</div>
+          <div class="v">MSc, Business Analytics<small>Trine University · May 2025</small></div>
+        </div>
+        <div class="row">
+          <div class="k">Education</div>
+          <div class="v">BSc, Statistics &amp; Computer Science<small>GITAM University · 2022</small></div>
+        </div>
+        <div class="row">
+          <div class="k">Certifications</div>
+          <div class="v">FMVA<small>Financial Modeling &amp; Valuation Analyst</small></div>
+        </div>
+        <div class="row">
+          <div class="k">Also certified</div>
+          <div class="v">SQL for Data Analysis<small>Business Analysis Foundations</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <div>
+        <div class="sec-title">Selected work</div>
+        <div class="sec-sub">A few projects that show how I think about modeling, reporting, and analysis.</div>
+      </div>
+    </div>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <div class="proj-tag">Valuation · Scenario modeling</div>
+          <h3>M&amp;A Financial Modeling</h3>
+        </div>
+        <div class="proj-date">Sep 2024</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-metrics">
+          <div class="pm"><div class="n">Multi-scenario</div><div class="l">Valuation ranges modeled</div></div>
+          <div class="pm"><div class="n">EBITDA</div><div class="l">Synergy &amp; growth impact</div></div>
+          <div class="pm"><div class="n">Full DD</div><div class="l">Due diligence review</div></div>
+        </div>
+        <p>Built acquisition models in Excel evaluating valuation ranges, synergy impact, EBITDA growth, and shareholder returns across multiple deal scenarios. Performed due diligence using financial statements, industry benchmarks, and market trends to test risks, valuation assumptions, and post-merger integration feasibility.</p>
+        <div class="chips">
+          <span class="chip">Excel</span><span class="chip">Scenario modeling</span><span class="chip">DCF / Valuation</span><span class="chip">Due diligence</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <div class="proj-tag">FP&amp;A · Performance analysis</div>
+          <h3>Financial Performance Analysis — Manufacturing Firm</h3>
+        </div>
+        <div class="proj-date">Feb 2025</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-metrics">
+          <div class="pm"><div class="n">Actual vs Budget</div><div class="l">Variance analysis</div></div>
+          <div class="pm"><div class="n">Faster cycles</div><div class="l">Reporting turnaround</div></div>
+          <div class="pm"><div class="n">Live KPIs</div><div class="l">Power BI dashboards</div></div>
+        </div>
+        <p>Analyzed actual results against budget and forecast using financial statements and operational data — evaluating profitability, margins, cost drivers, and working capital trends. Developed Power BI dashboards visualizing revenue mix, expenses, and cash flow, shortening reporting cycles and sharpening management decision-making.</p>
+        <div class="chips">
+          <span class="chip">Power BI</span><span class="chip">Variance analysis</span><span class="chip">Cash flow</span><span class="chip">KPI design</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="proj-top">
+        <div>
+          <div class="proj-tag">Reporting · Operations</div>
+          <h3>Pipeline &amp; Productivity Reporting</h3>
+        </div>
+        <div class="proj-date">2025–26</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-metrics">
+          <div class="pm"><div class="n">Pipeline</div><div class="l">Movement tracking</div></div>
+          <div class="pm"><div class="n">KPI</div><div class="l">Management dashboards</div></div>
+          <div class="pm"><div class="n">Forecasting</div><div class="l">Scenario-based</div></div>
+        </div>
+        <p>Built Power BI and Excel dashboards using scenario modeling and forecasting to track pipeline movement, recruiter productivity, and the manual dependencies affecting execution timelines and reporting accuracy. Created KPI dashboards and performance reports to support management decisions and strengthen reporting insight.</p>
+        <div class="chips">
+          <span class="chip">Power BI</span><span class="chip">Forecasting</span><span class="chip">SQL</span><span class="chip">KPI reporting</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <div>
+        <div class="sec-title">Skills &amp; tools</div>
+        <div class="sec-sub">The toolkit behind the work.</div>
+      </div>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <h4>Financial &amp; analytical</h4>
+        <div class="skill-list">
+          <span>Financial Modeling</span><span>FP&amp;A</span><span>Budgeting</span><span>Forecasting</span><span>Variance Analysis</span><span>P&amp;L Review</span><span>GL Reconciliation</span><span>Cash Flow</span><span>Balance Sheets</span><span>Financial Reporting</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Systems &amp; tools</h4>
+        <div class="skill-list">
+          <span>Excel (advanced)</span><span>Power BI</span><span>SQL</span><span>SAP</span><span>PowerPoint</span><span>Power Query</span><span>Microsoft Office</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Data &amp; analytics</h4>
+        <div class="skill-list">
+          <span>Data Analysis</span><span>Dashboarding</span><span>Scenario Modeling</span><span>KPI Design</span><span>Trend Analysis</span><span>Data Validation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Collaboration</h4>
+        <div class="skill-list">
+          <span>Stakeholder Communication</span><span>Cross-functional Collaboration</span><span>Executive Reporting</span><span>Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI — SIGNATURE SECTION -->
+<section id="ai">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-no">04</div>
+      <div>
+        <div class="sec-title">AI in practice</div>
+        <div class="sec-sub">Leveraging AI to work faster and sharper — a skillset I'm actively building.</div>
+      </div>
+    </div>
+    <p class="ai-intro">I'm learning to bring AI tools into the analyst workflow — not to replace judgment, but to clear the routine work so more time goes to interpretation and decision support. Here's where I'm applying and experimenting with it.</p>
+    <div class="ai-grid">
+      <div class="ai-card">
+        <div class="ic">// 01</div>
+        <h4>Analysis acceleration</h4>
+        <p>Using AI assistants to draft and debug Excel formulas, SQL queries, and Power Query steps faster — then validating the logic before it touches a model.</p>
+      </div>
+      <div class="ai-card">
+        <div class="ic">// 02</div>
+        <h4>Reporting &amp; narrative</h4>
+        <p>Turning variance results and dashboard outputs into clear written commentary for leadership, with AI as a first-draft partner for executive summaries.</p>
+      </div>
+      <div class="ai-card">
+        <div class="ic">// 03</div>
+        <h4>Data prep &amp; exploration</h4>
+        <p>Exploring AI-assisted approaches to data cleansing, pattern-spotting, and quick scenario questions across larger datasets before formal modeling.</p>
+      </div>
+    </div>
+    <p class="ai-note">I treat AI output as a starting point, not a source of truth — every figure and formula gets checked against the underlying data before it reaches a report.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <h2>Let's talk numbers.</h2>
+    <p>Open to financial analyst and FP&amp;A roles. The fastest way to reach me is email.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:aditi.dannina02@gmail.com">aditi.dannina02@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+12485679230">+1 (248) 567-9230</a>
+      <a class="btn btn-ghost" href="#" id="linkedin">LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Aditi Dannina · Financial Analyst · Michigan, USA</p>
+  </div>
+</footer>
+
+</body>
+</html>
